@@ -25,6 +25,7 @@
 /* Begin PBXFileReference section */
 		41380B011BB95B5F005B0E52 /* MonteCarlo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MonteCarlo; sourceTree = BUILT_PRODUCTS_DIR; };
 		41380B041BB95B5F005B0E52 /* MonteCarlo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MonteCarlo.cpp; sourceTree = "<group>"; };
+		41B785701BC2E7E70033C074 /* timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = timer.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +58,7 @@
 		41380B031BB95B5F005B0E52 /* MonteCarlo */ = {
 			isa = PBXGroup;
 			children = (
+				41B785701BC2E7E70033C074 /* timer.h */,
 				41380B041BB95B5F005B0E52 /* MonteCarlo.cpp */,
 			);
 			path = MonteCarlo;
@@ -205,6 +207,9 @@
 		41380B091BB95B5F005B0E52 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_VERSION = "";
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -212,6 +217,9 @@
 		41380B0A1BB95B5F005B0E52 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_VERSION = "";
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
