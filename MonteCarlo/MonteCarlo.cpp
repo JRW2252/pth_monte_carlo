@@ -53,7 +53,7 @@ int main (int argc, const char * argv[])
 //    cout << "Enter the number of darts to be thrown: ";
 //    cin >> NUM_DARTS;
 
-    NUM_DARTS = 8000000;
+    NUM_DARTS = 1000000;
     NUM_HITS = 0;
     pthread_t* thread_handles;
     thread_handles = (pthread_t *) malloc(NUM_THREADS*sizeof(pthread_t));
@@ -95,13 +95,16 @@ void * throwDarts(void * arg)
     mt19937 mt1(rd1());
     mt19937 mt2(rd2());
     // create accurate distribution
-    uniform_real_distribution<> dist(-RAND_MAX,RAND_MAX);
+//    uniform_int_distribution<> dist(-RAND_MAX,RAND_MAX);
     
     for (i = my_start; i < my_end; ++i) { // gen coordinates for throw
         double x, y;
-        x = ((double)dist(mt1)/RAND_MAX);
-        y = ((double)dist(mt2)/RAND_MAX);
+        x = ((double)mt1()/(RAND_MAX))-1;
+//        printf("x: %lf\t", x);
+        y = ((double)mt2()/(RAND_MAX))-1;
+//        printf("y: %lf\n", y);
         pair<double,double> p (x,y);
+//        printf("x: %lf\t y: %lf\n", p.first, p.second);
         coordinate.insert(p);
     }
     
@@ -117,11 +120,13 @@ void calcHits(set < pair <double,double> > & coordinate){
     for (set< pair <double,double> >::iterator it = coordinate.begin(); it != coordinate.end(); it++)
     {
         //squares the values
-        double x = pow ((*it).first, 2);
-        double y = pow ((*it).second, 2);
-        
+//        double x = pow ((*it).first, 2);
+//        double y = pow ((*it).second, 2);
+//
+//        printf("%lf^2 + %lf^2 = %lf\n", (*it).first,(*it).second,
+//               ((*it).first*(*it).first) + ((*it).second*(*it).second));
         //sums x^2 and y^ to check if in circle
-        if ((x+y) <= 1)
+        if (((*it).first*(*it).first) + ((*it).second*(*it).second) <= 1)
             localHits++;
     }
     pthread_mutex_lock(&myLock);
@@ -131,5 +136,6 @@ void calcHits(set < pair <double,double> > & coordinate){
 
 double calcPi(){
     double myPi =  (4 * NUM_HITS / NUM_DARTS);
-    return (float) myPi;
+//    printf("My Pi: %lf\n", myPi);
+    return myPi;
 }
