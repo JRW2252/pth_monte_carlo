@@ -32,6 +32,7 @@
 #include <random>
 #include <iostream>
 #include <set>
+#include <random>
 #include <math.h>
 using namespace std;
 
@@ -85,18 +86,16 @@ void * throwDarts(void * arg)
     my_start = group * my_rank;
     my_end = my_start + group;
     
-    // set up RNG's
-    std::random_device rd1, rd2;
-    std::mt19937 mt1(rd1());
-    std::mt19937 mt2(rd2());
-    
-    // create accurate distribution
-    std::uniform_real_distribution<double>dist(-RAND_MAX, RAND_MAX);
-    
     // init pairs for storing a set with coordinates
-    set< pair <double, double> > coordinate;
+    set<pair<double,double> > coordinate;
     
-//    printf("thread %ld\t start: %ld\t end: %ld\n", my_rank, my_start, my_end);
+    // set up RNG's
+    random_device rd1;
+    random_device rd2;
+    mt19937 mt1(rd1());
+    mt19937 mt2(rd2());
+    // create accurate distribution
+    uniform_real_distribution<> dist(-RAND_MAX,RAND_MAX);
     
     for (i = my_start; i < my_end; ++i) { // gen coordinates for throw
         double x, y;
@@ -111,16 +110,15 @@ void * throwDarts(void * arg)
     return NULL;
 }
 
-void calcHits(set < pair < double, double > > & coordinate){
+void calcHits(set < pair <double,double> > & coordinate){
     uint localHits = 0;
     pthread_mutex_t myLock;
     
-    for (set<pair<double,double> >::iterator it = coordinate.begin() ;
-         it != coordinate.end(); it++)
+    for (set< pair <double,double> >::iterator it = coordinate.begin(); it != coordinate.end(); it++)
     {
         //squares the values
-        double x = pow (get<0>(*it), 2);
-        double y = pow (get<1>(*it), 2);
+        double x = pow ((*it).first, 2);
+        double y = pow ((*it).second, 2);
         
         //sums x^2 and y^ to check if in circle
         if ((x+y) <= 1)
