@@ -23,6 +23,11 @@
  I didn't want to take the time to optomize the number of threads per number of darts to 
  throw from a users input. Ah, just forget about it. . . .
  
+ Compiling on Stampede: Compiles on stampede using the following command: 
+ -std=c++0x MonteCarlo.cpp -o MCarlo -pthread
+ 
+ Note: While running on stampede, I have noticed inconsistent runtimes. 
+ Work on cleaning up code for efficiency/optimizing functions.
  */
 
 #include "timer.h" 
